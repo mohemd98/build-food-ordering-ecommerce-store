@@ -20,3 +20,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('category/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'singleCategory'])->name('single.category');

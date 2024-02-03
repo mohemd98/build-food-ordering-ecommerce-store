@@ -25,8 +25,8 @@
     <div class="banner">
         <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
             <video width="100%" preload="auto" loop autoplay muted>
-                <source src='assets/media/explore.mp4' type='video/mp4' />
-                <source src='assets/media/explore.webm' type='video/webm' />
+                <source src="{{ asset( 'assets/media/explore.mp4')}}" type='video/mp4' />
+                <source src="{{ asset('assets/media/explore.webm')}}" type='video/webm' />
             </video>
             <div class="container">
                 <h1 class="pt-5">
@@ -166,60 +166,17 @@
                 <section id="categories" class="pb-0 gray-bg">
                     <h2 class="title">Categories</h2>
                     <div class="landing-categories owl-carousel">
+                        @foreach($categories as $category)
                         <div class="item">
                             <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/vegetables.jpg">
+                                <img src="{{ asset( 'assets/img/'.$category->image.'')}}">
                                 <div class="card-img-overlay d-flex align-items-center justify-content-center">
                                     <!-- <h4 class="card-title">Vegetables</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Vegetables</a>
+                                    <a href="shop.html" class="btn btn-primary btn-lg">{{$category->name}}</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/fruits.jpg">
-                                <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                                    <!-- <h4 class="card-title">Fruits</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Fruits</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/meats.jpg">
-                                <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                                    <!-- <h4 class="card-title">Meats</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Meats</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/fish.jpg">
-                                <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                                    <!-- <h4 class="card-title">Fishes</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Fishes</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/frozen.jpg">
-                                <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                                    <!-- <h4 class="card-title">Frozen Foods</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Frozen Foods</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card rounded-0 border-0 text-center">
-                                <img src="assets/img/package.jpg">
-                                <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                                    <!-- <h4 class="card-title">Package</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">Package</a>
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
                     </div>
                 </section>
 </div>

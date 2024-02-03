@@ -92,7 +92,7 @@
                 <div class="container">
                     <!-- Navbar Brand -->
                     <a href="{{ url('/') }}" class="navbar-brand">
-                        <img src="assets/img/logo/logo.png" alt="">
+                        <img src="{{ asset( 'assets/img/logo/logo.png')}}" alt="">
                     </a>
 
                     <!-- Toggle Button -->
