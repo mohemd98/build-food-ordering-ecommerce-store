@@ -12,8 +12,9 @@ class Category extends Model
 
     protected $table = "categories";
 
-    protected $fillale = [
+    protected $fillable = [
         'name',
+        'icon',
         'image'
     ];
     public  $timestamps = true;

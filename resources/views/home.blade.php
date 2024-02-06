@@ -172,7 +172,7 @@
                                 <img src="{{ asset( 'assets/img/'.$category->image.'')}}">
                                 <div class="card-img-overlay d-flex align-items-center justify-content-center">
                                     <!-- <h4 class="card-title">Vegetables</h4> -->
-                                    <a href="shop.html" class="btn btn-primary btn-lg">{{$category->name}}</a>
+                                    <a href="{{route('single.category' , $category->id)}}" class="btn btn-primary btn-lg">{{$category->name}}</a>
                                 </div>
                             </div>
                         </div>
