@@ -7,6 +7,8 @@ use App\Models\Product\Category;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Models\Product\Cart;
+use App\Models\Product\Order;
+
 
 use Auth;
 use Redirect;
@@ -114,7 +116,42 @@ class ProudctsController extends Controller
     public function checkout()
     {
 
-        echo 'welcom';
+        $cartItems=Cart::select()->where('user_id' , Auth::user()->id)->get();
+        $checkoutSubtotle=Cart::select()->where('user_id' , Auth::user()->id)->sum('subtotal');
+
+
+        return view('products.checkout' , compact('cartItems' , 'checkoutSubtotle'));
+
+    }
+
+    public function proccessCheckout(Request $request)
+    {
+
+        $checkout = Order::create([
+            "name" => $request->name,
+            "last_name" => $request->last_name,
+            "address" => $request->address,
+            "town" => $request->town,
+            "state" => $request->state,
+            "zip_code" => $request->zip_code,
+            "email" => $request->email,
+            "phone_number" => $request->phone_number,
+            "price" => $request->price,
+            "user_id" => Auth::user()->id,
+            "order_notes" => $request->order_notes
+        ]);
+
+        if ($checkout) {
+            return Redirect::route("products.pay");
+
+        }
+
+    }
+
+    public function payWithpaypal()
+    {
+
+        echo 'ok';
 
     }
 }
