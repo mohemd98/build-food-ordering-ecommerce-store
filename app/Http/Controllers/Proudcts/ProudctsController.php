@@ -141,6 +141,9 @@ class ProudctsController extends Controller
             "order_notes" => $request->order_notes
         ]);
 
+        $value=Session::put('value' , $request->price);
+        $newPrice = Session::get($value);
+
         if ($checkout) {
             return Redirect::route("products.pay");
 
@@ -150,8 +153,19 @@ class ProudctsController extends Controller
 
     public function payWithpaypal()
     {
+        return view('products.pay');
 
-        echo 'ok';
+    }
+
+    public function success()
+    {
+
+        $deleteItemsFromCart=Cart::where('user_id' , Auth::user()->id);
+        $deleteItemsFromCart->delete();
+        if($deleteItemsFromCart){
+            Session::forget('value');
+            return view('products.success');
+        }
 
     }
 }

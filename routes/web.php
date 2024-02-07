@@ -38,3 +38,4 @@ Route::post('proudcts/prepare-checkout', [App\Http\Controllers\Proudcts\Proudcts
 Route::get('proudcts/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'checkout'])->name('products.checkout');
 Route::post('proudcts/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'proccessCheckout'])->name('products.proccess.checkout');
 Route::get('proudcts/pay', [App\Http\Controllers\Proudcts\ProudctsController::class, 'payWithpaypal'])->name('products.pay');
+Route::get('proudcts/success', [App\Http\Controllers\Proudcts\ProudctsController::class, 'success'])->name('products.success');
