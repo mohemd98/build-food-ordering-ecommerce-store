@@ -1,25 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">{{ __('Dashboard') }}</div>--}}
 
-{{--                <div class="card-body">--}}
-{{--                    @if (session('status'))--}}
-{{--                        <div class="alert alert-success" role="alert">--}}
-{{--                            {{ session('status') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-
-{{--                    {{ __('You are logged in!') }}--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 <div id="page-content" class="page-content" style="margin-top: -25px">
     <div class="banner">
@@ -157,7 +139,7 @@
                             </div>
 
                             <div class="col-md-12 mt-5 text-center">
-                                <a href="shop.html" class="btn btn-primary btn-lg">SHOP NOW</a>
+                                <a href="{{route('products.shop')}}" class="btn btn-primary btn-lg">SHOP NOW</a>
                             </div>
                         </div>
                     </div>

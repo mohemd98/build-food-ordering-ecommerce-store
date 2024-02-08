@@ -10,9 +10,7 @@
                     <h1 class="pt-5">
 you pay for prodect seccussfuly
                     </h1>
-                    <a class="btn btn-primary" href="{{route('home')}}">
-                           go home
-                    </a>
+                    <a class="btn btn-primary" href="{{route('home')}}"> go home</a>
                 </div>
             </div>
         </div>

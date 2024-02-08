@@ -12,7 +12,7 @@ use App\Models\Product\Order;
 
 use Auth;
 use Redirect;
-use Session ;
+use Session;
 
 
 class ProudctsController extends Controller
@@ -27,13 +27,20 @@ class ProudctsController extends Controller
 
     public function singleProduct($id)
     {
-
         $product = Product::find($id);
 
         $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $id)->get();
-        $checkInCart = Cart::where('pro_id', $id)->where('user_id', Auth::user()->id)->count();
+        if (isset(auth::user()->id)) {
 
-        return view('products.singleproduct', compact('product', 'relatedProducts', 'checkInCart'));
+            $checkInCart = Cart::where('pro_id', $id)->where('user_id', Auth::user()->id)->count();
+
+            return view('products.singleproduct', compact('product', 'relatedProducts', 'checkInCart'));
+
+        } else {
+            return view('products.singleproduct', compact('product', 'relatedProducts'));
+
+        }
+
 
     }
 
@@ -102,11 +109,11 @@ class ProudctsController extends Controller
 
     public function prepareCheckout(Request $request)
     {
-        $price=$request->price;
-        $value=Session::put('value' , $price);
+        $price = $request->price;
+        $value = Session::put('value', $price);
         $newPrice = Session::get($value);
 
-        if($newPrice > 0){
+        if ($newPrice > 0) {
             return Redirect::route('products.checkout');
         }
 
@@ -116,11 +123,11 @@ class ProudctsController extends Controller
     public function checkout()
     {
 
-        $cartItems=Cart::select()->where('user_id' , Auth::user()->id)->get();
-        $checkoutSubtotle=Cart::select()->where('user_id' , Auth::user()->id)->sum('subtotal');
+        $cartItems = Cart::select()->where('user_id', Auth::user()->id)->get();
+        $checkoutSubtotle = Cart::select()->where('user_id', Auth::user()->id)->sum('subtotal');
 
 
-        return view('products.checkout' , compact('cartItems' , 'checkoutSubtotle'));
+        return view('products.checkout', compact('cartItems', 'checkoutSubtotle'));
 
     }
 
@@ -141,7 +148,7 @@ class ProudctsController extends Controller
             "order_notes" => $request->order_notes
         ]);
 
-        $value=Session::put('value' , $request->price);
+        $value = Session::put('value', $request->price);
         $newPrice = Session::get($value);
 
         if ($checkout) {
@@ -160,9 +167,9 @@ class ProudctsController extends Controller
     public function success()
     {
 
-        $deleteItemsFromCart=Cart::where('user_id' , Auth::user()->id);
+        $deleteItemsFromCart = Cart::where('user_id', Auth::user()->id);
         $deleteItemsFromCart->delete();
-        if($deleteItemsFromCart){
+        if ($deleteItemsFromCart) {
             Session::forget('value');
             return view('products.success');
         }

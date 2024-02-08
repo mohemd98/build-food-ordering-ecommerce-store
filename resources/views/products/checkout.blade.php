@@ -64,11 +64,11 @@
                                 <div class="form-group row">
                                     <div class="col">
                                         <input class="form-control" name="user_id" value="{{Auth::user()->id}}"
-                                               placeholder="user_ID" type="text">
+                                               placeholder="user_ID" type="hidden">
                                     </div>
                                     <div class="col">
                                         <input class="form-control" name="price" value="{{$checkoutSubtotle +20 }}"
-                                               type="tel">
+                                               type="hidden">
                                     </div>
                                 </div>
 

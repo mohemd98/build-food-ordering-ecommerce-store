@@ -29,13 +29,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
 <div id="app">
-
 
 
     <div class="page-header">
@@ -56,6 +56,15 @@
                 <div class="collapse navbar-collapse" id="navbarcollapse">
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="{{route('home')}}" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('about')}}" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('contact')}}" class="nav-link">Contact</a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('products.shop')}}" class="nav-link">Shop</a>
                         </li>
@@ -79,12 +88,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown"
                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar-header"><img src="{{asset('assets/img/logo/avatar.jpg')}}">
+                                    <div class="avatar-header"><img
+                                            src="{{asset('assets/users_images/'.Auth::user()->image.'')}}">
                                     </div> {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="transaction.html">Transactions History</a>
-                                    <a class="dropdown-item" href="setting.html">Settings</a>
+                                    <a class="dropdown-item" href="{{route('users.orders')}}">Transactions History</a>
+                                    <a class="dropdown-item" href="{{route('users.settings')}}">Settings</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -97,9 +107,10 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('products.cart')}}" class="nav-link" data-toggle="" aria-haspopup="true"
+                                <a href="{{route('products.cart')}}" class="nav-link" data-toggle=""
+                                   aria-haspopup="true"
                                    aria-expanded="false">
-                                    <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
+                                    <i class="fa fa-shopping-basket"></i>
                                 </a>
 
                             </li>

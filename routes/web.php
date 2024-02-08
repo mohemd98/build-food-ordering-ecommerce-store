@@ -12,30 +12,47 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+
+
+
+Route::group(['prefix' => 'proudcts'], function () {
 
 //product
-Route::get('proudcts/category/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'singleCategory'])->name('single.category');
-Route::get('proudcts/single-product/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'singleProduct'])->name('single.product');
-Route::get('proudcts/shop', [App\Http\Controllers\Proudcts\ProudctsController::class, 'shop'])->name('products.shop');
+    Route::get('/category/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'singleCategory'])->name('single.category');
+    Route::get('/single-product/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'singleProduct'])->name('single.product');
+    Route::get('/shop', [App\Http\Controllers\Proudcts\ProudctsController::class, 'shop'])->name('products.shop');
 
 //cart
-Route::post('proudcts/add-cart', [App\Http\Controllers\Proudcts\ProudctsController::class, 'addToCart'])->name('products.add.cart');
-Route::get('proudcts/cart', [App\Http\Controllers\Proudcts\ProudctsController::class, 'cart'])->name('products.cart');
-Route::get('proudcts/delete-cart/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'deleteFromCart'])->name('products.cart.delete');
-
-
+    Route::post('/add-cart', [App\Http\Controllers\Proudcts\ProudctsController::class, 'addToCart'])->name('products.add.cart');
+    Route::get('/cart', [App\Http\Controllers\Proudcts\ProudctsController::class, 'cart'])->name('products.cart')->middleware('auth');
+    Route::get('/delete-cart/{id}', [App\Http\Controllers\Proudcts\ProudctsController::class, 'deleteFromCart'])->name('products.cart.delete');
 //checkout
 
-Route::post('proudcts/prepare-checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'prepareCheckout'])->name('products.prepare.checkout');
-Route::get('proudcts/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'checkout'])->name('products.checkout');
-Route::post('proudcts/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'proccessCheckout'])->name('products.proccess.checkout');
-Route::get('proudcts/pay', [App\Http\Controllers\Proudcts\ProudctsController::class, 'payWithpaypal'])->name('products.pay');
-Route::get('proudcts/success', [App\Http\Controllers\Proudcts\ProudctsController::class, 'success'])->name('products.success');
+    Route::post('/prepare-checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'prepareCheckout'])->name('products.prepare.checkout');
+
+    Route::get('/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'checkout'])->name('products.checkout')->middleware('check.for.price');
+    Route::post('/checkout', [App\Http\Controllers\Proudcts\ProudctsController::class, 'proccessCheckout'])->name('products.proccess.checkout')->middleware('check.for.price');
+    Route::get('/pay', [App\Http\Controllers\Proudcts\ProudctsController::class, 'payWithpaypal'])->name('products.pay')->middleware('check.for.price');
+    Route::get('/success', [App\Http\Controllers\Proudcts\ProudctsController::class, 'success'])->name('products.success')->middleware('check.for.price');
+
+
+});
+
+Route::group(['prefix' => 'users'], function () {
+
+//users pages
+    Route::get('/my-orders', [App\Http\Controllers\Users\UsersController::class, 'MyOrders'])->name('users.orders')->middleware('auth');
+    Route::get('/setting', [App\Http\Controllers\Users\UsersController::class, 'settings'])->name('users.settings')->middleware('auth');
+    Route::post('/setting/{id}', [App\Http\Controllers\Users\UsersController::class, 'updateUserSettings'])->name('users.settings.update')->middleware('auth');
+});

@@ -17,11 +17,11 @@
             </div>
         </div>
         <div class="container">
-        @if (\Session::has('success'))
-            <div class="alert alert-success">
-                <p>{!! \Session::get('success') !!}</p>
-            </div>
-        @endif
+            @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <p>{!! \Session::get('success') !!}</p>
+                </div>
+            @endif
         </div>
         <div class="product-detail">
             <div class="container">
@@ -70,15 +70,20 @@
                             <input name="pro_id" value="{{$product->id}}" type="hidden">
                             <input name="image" value="{{$product->image}}" type="hidden">
 
-                            @if($checkInCart > 0)
-                                <button disabled class="mt-3 btn btn-primary btn-lg">
-                                    <i class="fa fa-shopping-basket"></i> Added to Cart
-                                </button>
-                            @else
+                            @if(isset(auth::user()->id))
 
-                                <button type="submit" name="submit" class="mt-3 btn btn-primary btn-lg">
-                                    <i class="fa fa-shopping-basket"></i> Add to Cart
-                                </button>
+                                @if($checkInCart > 0)
+                                    <button disabled class="mt-3 btn btn-primary btn-lg">
+                                        <i class="fa fa-shopping-basket"></i> Added to Cart
+                                    </button>
+                                @else
+
+                                    <button type="submit" name="submit" class="mt-3 btn btn-primary btn-lg">
+                                        <i class="fa fa-shopping-basket"></i> Add to Cart
+                                    </button>
+                                @endif
+                            @else
+                                <p class="alert alert-success mt-5"> login to add prodect tp cart</p>
                             @endif
                         </form>
 
