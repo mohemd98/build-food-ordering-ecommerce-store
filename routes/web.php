@@ -25,7 +25,6 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->nam
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 
 
-
 Route::group(['prefix' => 'proudcts'], function () {
 
 //product
@@ -55,4 +54,20 @@ Route::group(['prefix' => 'users'], function () {
     Route::get('/my-orders', [App\Http\Controllers\Users\UsersController::class, 'MyOrders'])->name('users.orders')->middleware('auth');
     Route::get('/setting', [App\Http\Controllers\Users\UsersController::class, 'settings'])->name('users.settings')->middleware('auth');
     Route::post('/setting/{id}', [App\Http\Controllers\Users\UsersController::class, 'updateUserSettings'])->name('users.settings.update')->middleware('auth');
+});
+
+
+//admin
+
+Route::get('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'viewlogin'])->name('view.login')->middleware('check.for.auth');
+Route::post('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'checkLogin'])->name('check.login');
+
+Route::group(['prefix' => 'admin', 'middleware' =>'auth:admin'], function () {
+    Route::get('/index', [App\Http\Controllers\Admins\AdminsController::class, 'index'])->name('admins.dashboard');
+
+//    admins
+    Route::get('/all-admins', [App\Http\Controllers\Admins\AdminsController::class, 'displayAdmins'])->name('admins.all');
+    Route::get('/create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'createAdmins'])->name('admins.create');
+    Route::post('/create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'storeAdmins'])->name('admins.store');
+
 });
