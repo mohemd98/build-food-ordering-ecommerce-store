@@ -70,4 +70,24 @@ Route::group(['prefix' => 'admin', 'middleware' =>'auth:admin'], function () {
     Route::get('/create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'createAdmins'])->name('admins.create');
     Route::post('/create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'storeAdmins'])->name('admins.store');
 
+//    categories
+    Route::get('/all-categories', [App\Http\Controllers\Admins\AdminsController::class, 'displayCategories'])->name('categories.all');
+    Route::get('/create-categories', [App\Http\Controllers\Admins\AdminsController::class, 'createCategories'])->name('categories.create');
+    Route::post('/create-categories', [App\Http\Controllers\Admins\AdminsController::class, 'storeCategories'])->name('categories.stroe');
+    Route::get('/edit-categories/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editCategories'])->name('categories.edit');
+    Route::post('/update-categories/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateCategories'])->name('categories.update');
+    Route::get('/delete-categories/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteCategories'])->name('categories.delete');
+
+// products
+    Route::get('/all-products', [App\Http\Controllers\Admins\AdminsController::class, 'displayProducts'])->name('products.all');
+    Route::get('/create-products', [App\Http\Controllers\Admins\AdminsController::class, 'createProducts'])->name('products.create');
+    Route::post('/create-products', [App\Http\Controllers\Admins\AdminsController::class, 'storeProducts'])->name('products.stroe');
+    Route::get('/delete-products/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteProducts'])->name('products.delete');
+
+
+    //orders
+    Route::get('/all-orders', [App\Http\Controllers\Admins\AdminsController::class, 'displayOrders'])->name('orders.all');
+    Route::get('/edit-orders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editOrders'])->name('orders.edit');
+    Route::post('/update-orders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateOrders'])->name('orders.update');
+
 });
